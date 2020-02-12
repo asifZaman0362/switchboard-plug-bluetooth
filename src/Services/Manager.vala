@@ -341,6 +341,9 @@ public class Bluetooth.Services.ObjectManager : Object {
         discoverable = state;
         is_powered = state;
 
+        if (state == true) Process.spawn_command_line_sync("rfkill unblock bluetooth");
+    	else Process.spawn_command_line_sync("rfkill block bluetooth");
+
         if (!state) {
             yield stop_discovery ();
         }
